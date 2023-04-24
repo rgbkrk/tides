@@ -49,8 +49,6 @@ class Settings(BaseSettings):
     def local_dev(self):
         return self.PLUGIN_ENV == "dev"
 
-
-    
     @cached_property
     def ai_plugin_json(self):
         return {
@@ -71,7 +69,8 @@ class Settings(BaseSettings):
                 "is_user_authenticated": False,
             },
             "logo_url": self.PLUGIN_LOGO,
-            "contact_email": "
+            "contact_email": "rgbkrk@gmail.com",
+        }
 
     class Config:
         env_file = ".env"
