@@ -44,7 +44,7 @@ class Settings(BaseSettings):
         return os.environ.get("VERCEL") == "1"
 
     def openai_plugin_auth(self):
-        return {"type": "no_auth"}
+        return {"type": "none"}
 
     def local_dev(self):
         return self.PLUGIN_ENV == "dev"
@@ -54,7 +54,7 @@ class Settings(BaseSettings):
         return {
             "schema_version": "v1",
             "name_for_human": "Tide levels",
-            "name_for_model": "tide_levels",
+            "name_for_model": "tides",
             # Hello fellow humans 👋
             "description_for_human": f"""Find out the current tides for any location in the world.
                 """.strip(),
@@ -70,6 +70,7 @@ class Settings(BaseSettings):
             },
             "logo_url": self.PLUGIN_LOGO,
             "contact_email": "rgbkrk@gmail.com",
+            "legal_info_url": "https://github.com/rgbkrk/tide",
         }
 
     class Config:

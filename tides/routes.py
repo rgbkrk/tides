@@ -10,7 +10,7 @@ router = APIRouter()
 NOAA_API_URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter"
 
 
-@router.get("/api/tides")
+@router.get("/api/tides", operation_id="get_tide_data")
 async def get_tide_data(request: TideRequest) -> TideResponse:
     if request.begin_date == "today":
         begin_date = datetime.utcnow().strftime("%Y%m%d")
