@@ -12,7 +12,6 @@ NOAA_API_URL = "https://api.tidesandcurrents.noaa.gov/api/prod/datagetter"
 
 @router.get("/api/tides")
 async def get_tide_data(request: TideRequest) -> TideResponse:
-    print("ok then", request)
     if request.begin_date == "today":
         begin_date = datetime.utcnow().strftime("%Y%m%d")
     else:
