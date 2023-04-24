@@ -9,7 +9,7 @@ settings = get_settings()
 
 
 async def main():
-    if settings.is_dev():
+    if settings.local_dev():
         host = "127.0.0.1"
     else:
         host = "0.0.0.0"

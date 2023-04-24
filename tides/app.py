@@ -13,33 +13,9 @@ import importlib.resources
 settings = get_settings()
 
 
-OPEN_API_URI = "/api/openapi.json"
-
-ai_plugin_json = {
-    "schema_version": "v1",
-    "name_for_human": "Tide levels",
-    "name_for_model": "tide_levels",
-    # Hello fellow humans 👋
-    "description_for_human": f"""Find out the current tides for any location in the world.
-        """.strip(),
-    # Hello fellow models 💃 🕺🏽
-    "description_for_model": f"""
-        Pull tide data from NOAA for any location in the world.
-        """.strip(),
-    "auth": settings.openai_plugin_auth(),
-    "api": {
-        "type": "openapi",
-        "url": f"{settings.PLUGIN_DOMAIN}{OPEN_API_URI}",
-        "is_user_authenticated": False,
-    },
-    "logo_url": settings.PLUGIN_LOGO,
-    "contact_email": "rgbkrk@gmail.com",
-    "legal_info_url": "https://github.com/rgbkrk",
-}
-
 app = FastAPI(
-    title=ai_plugin_json["name_for_human"],
-    description=ai_plugin_json["description_for_human"],
+    title=settings.ai_plugin_json["name_for_human"],
+    description=settings.ai_plugin_json["description_for_human"],
     version=__version__,
     servers=[
         {
@@ -66,14 +42,14 @@ async def get_root() -> HTMLResponse:
 
 
 # Defined outside of the router so we can call app.openapi()
-@app.get(OPEN_API_URI, include_in_schema=False)
+@app.get(settings.OPEN_API_URI, include_in_schema=False)
 async def get_openapi():
     return app.openapi()
 
 
 @app.get("/.well-known/ai-plugin.json", include_in_schema=False)
 async def get_ai_plugin_json():
-    return ai_plugin_json
+    return settings.ai_plugin_json
 
 
 app.add_middleware(
